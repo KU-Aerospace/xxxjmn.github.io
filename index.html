@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>수세미나무 - 자연의 손길</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f5f0e8;
+      --warm-white: #faf8f3;
+      --sage: #7a9b76;
+      --deep-sage: #4a7046;
+      --earth: #8b6f47;
+      --dark-earth: #5c4a2a;
+      --sand: #d4b896;
+      --light-sand: #ede0cc;
+      --text-dark: #2d2416;
+      --text-mid: #5c4a2a;
+      --text-light: #8b7355;
+      --accent: #c17f3b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--warm-white);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE TEXTURE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.2rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(245, 240, 232, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(139, 111, 71, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .nav-logo {
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: var(--deep-sage);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+    .nav-logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cart {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--deep-sage);
+      color: #fff;
+      padding: 0.6rem 1.3rem;
+      border-radius: 2rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .nav-cart:hover {
+      background: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 4rem 5rem 6rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--light-sand);
+      color: var(--dark-earth);
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      width: fit-content;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+    }
+
+    .hero-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 3.8rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text-dark);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s ease 0.1s both;
+    }
+    .hero-title .accent-line {
+      color: var(--deep-sage);
+      font-style: italic;
+    }
+    .hero-title .underline-accent {
+      position: relative;
+      display: inline-block;
+    }
+    .hero-title .underline-accent::after {
+      content: '';
+      position: absolute;
+      bottom: 4px; left: 0;
+      width: 100%; height: 6px;
+      background: var(--sand);
+      opacity: 0.6;
+      z-index: -1;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--text-light);
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+      animation: fadeUp 0.8s ease 0.2s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      animation: fadeUp 0.8s ease 0.3s both;
+    }
+
+    .btn-primary {
+      background: var(--deep-sage);
+      color: #fff;
+      padding: 0.9rem 2.2rem;
+      border-radius: 0.4rem;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      transition: all 0.3s;
+      border: 2px solid var(--deep-sage);
+    }
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--deep-sage);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      color: var(--text-mid);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: gap 0.3s, color 0.3s;
+    }
+    .btn-secondary:hover {
+      gap: 0.9rem;
+      color: var(--accent);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 3.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--light-sand);
+      animation: fadeUp 0.8s ease 0.4s both;
+    }
+    .stat-item { }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--deep-sage);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── HERO RIGHT (Visual) ─── */
+    .hero-right {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cream);
+      overflow: hidden;
+    }
+
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(122,155,118,0.2) 0%, transparent 70%),
+                  radial-gradient(ellipse at 80% 20%, rgba(193,127,59,0.1) 0%, transparent 50%);
+    }
+
+    .hero-visual {
+      position: relative;
+      width: 380px;
+      height: 460px;
+    }
+
+    .hero-card-main {
+      position: absolute;
+      width: 260px;
+      height: 320px;
+      background: linear-gradient(135deg, #d4c4a8 0%, #b8a882 100%);
+      border-radius: 1.5rem;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) rotate(-3deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 5rem;
+      box-shadow: 0 20px 60px rgba(90, 70, 40, 0.25);
+      animation: floatCard 6s ease-in-out infinite;
+      overflow: hidden;
+    }
+    .hero-card-main::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 12px,
+        rgba(255,255,255,0.06) 12px,
+        rgba(255,255,255,0.06) 14px
+      );
+    }
+    .scrub-icon {
+      font-size: 5rem;
+      line-height: 1;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+      z-index: 1;
+    }
+    /* SVG scrubber visual */
+    .scrub-svg {
+      width: 160px;
+      height: 140px;
+      z-index: 1;
+    }
+
+    .hero-card-badge {
+      position: absolute;
+      top: 30px; right: 20px;
+      background: var(--warm-white);
+      border-radius: 1rem;
+      padding: 0.8rem 1rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      text-align: center;
+      animation: floatCard 6s ease-in-out 1s infinite;
+      min-width: 110px;
+    }
+    .badge-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .badge-label {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      margin-top: 0.2rem;
+    }
+
+    .hero-card-tag {
+      position: absolute;
+      bottom: 50px; left: 0px;
+      background: var(--deep-sage);
+      color: #fff;
+      border-radius: 0.8rem;
+      padding: 0.7rem 1.2rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      box-shadow: 0 8px 24px rgba(74,112,70,0.3);
+      animation: floatCard 6s ease-in-out 2s infinite;
+      white-space: nowrap;
+    }
+
+    .hero-bg-circle {
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(122,155,118,0.15) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ─── MARQUEE ─── */
+    .marquee-section {
+      background: var(--deep-sage);
+      padding: 0.9rem 0;
+      overflow: hidden;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      white-space: nowrap;
+      animation: marquee 18s linear infinite;
+    }
+    .marquee-item {
+      flex-shrink: 0;
+      padding: 0 2rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+    }
+    .marquee-sep {
+      color: var(--sand);
+      opacity: 0.7;
+    }
+
+    /* ─── PRODUCTS ─── */
+    .products-section {
+      padding: 7rem 6rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 4rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.3;
+    }
+
+    .section-link {
+      color: var(--deep-sage);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border-bottom: 1px solid var(--deep-sage);
+      padding-bottom: 2px;
+      transition: opacity 0.3s;
+    }
+    .section-link:hover { opacity: 0.6; }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .product-card {
+      background: var(--cream);
+      border-radius: 1.2rem;
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 48px rgba(90,70,40,0.15);
+    }
+
+    .product-img {
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-img-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-img-inner {
+      transform: scale(1.06);
+    }
+
+    .bg-sage { background: linear-gradient(135deg, #c8d9c4 0%, #a3be9e 100%); }
+    .bg-earth { background: linear-gradient(135deg, #e0cdb2 0%, #c9ad88 100%); }
+    .bg-sand  { background: linear-gradient(135deg, #e8dcc8 0%, #d4c4a8 100%); }
+
+    .product-tag {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      background: var(--warm-white);
+      color: var(--accent);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      padding: 0.3rem 0.8rem;
+      border-radius: 2rem;
+      text-transform: uppercase;
+    }
+
+    .product-info {
+      padding: 1.5rem;
+    }
+    .product-name {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.4rem;
+    }
+    .product-desc {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .product-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--deep-sage);
+      font-weight: 700;
+    }
+    .product-price small {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 0.75rem;
+      color: var(--text-light);
+      font-weight: 400;
+    }
+
+    .add-btn {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: var(--deep-sage);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+    .add-btn:hover {
+      background: var(--accent);
+      transform: rotate(90deg) scale(1.1);
+    }
+    .add-btn svg { width: 16px; height: 16px; fill: #fff; }
+
+    /* ─── FEATURES ─── */
+    .features-section {
+      padding: 6rem 6rem;
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+    .features-section::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(122,155,118,0.12) 0%, transparent 70%);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+
+    .feature-card {
+      padding: 2rem;
+      background: var(--warm-white);
+      border-radius: 1rem;
+      transition: transform 0.3s;
+    }
+    .feature-card:hover { transform: translateY(-4px); }
+
+    .feature-icon {
+      width: 52px; height: 52px;
+      border-radius: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+    .icon-green { background: rgba(122,155,118,0.2); }
+    .icon-earth { background: rgba(193,127,59,0.15); }
+    .icon-sand  { background: rgba(212,184,150,0.3); }
+    .icon-dark  { background: rgba(74,112,70,0.15); }
+
+    .feature-icon svg { width: 24px; height: 24px; }
+
+    .feature-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+    .feature-text {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    /* ─── REVIEWS ─── */
+    .reviews-section {
+      padding: 7rem 6rem;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+
+    .review-card {
+      padding: 2rem;
+      background: var(--cream);
+      border-radius: 1rem;
+      position: relative;
+    }
+    .review-card::before {
+      content: '"';
+      position: absolute;
+      top: 1rem; right: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      color: var(--light-sand);
+      line-height: 1;
+    }
+
+    .review-stars {
+      display: flex;
+      gap: 0.2rem;
+      margin-bottom: 1rem;
+    }
+    .star {
+      width: 14px; height: 14px;
+      background: var(--accent);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+
+    .review-text {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: var(--text-mid);
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .author-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .av1 { background: var(--sage); }
+    .av2 { background: var(--earth); }
+    .av3 { background: var(--accent); }
+
+    .author-info .name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    .author-info .date {
+      font-size: 0.75rem;
+      color: var(--text-light);
+    }
+
+    /* ─── BANNER ─── */
+    .banner-section {
+      margin: 0 6rem 7rem;
+      background: linear-gradient(135deg, var(--deep-sage) 0%, #2d5229 100%);
+      border-radius: 2rem;
+      padding: 4rem 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .banner-section::before {
+      content: '';
+      position: absolute;
+      right: -80px; top: -80px;
+      width: 350px; height: 350px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .banner-section::after {
+      content: '';
+      position: absolute;
+      right: 100px; bottom: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .banner-text h2 {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.8rem;
+      line-height: 1.3;
+    }
+    .banner-text p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.75);
+      font-weight: 300;
+    }
+
+    .banner-form {
+      display: flex;
+      gap: 0;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      flex-shrink: 0;
+    }
+    .banner-input {
+      padding: 0.9rem 1.5rem;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 0.88rem;
+      font-family: 'Noto Sans KR', sans-serif;
+      outline: none;
+      min-width: 240px;
+    }
+    .banner-input::placeholder { color: rgba(255,255,255,0.55); }
+    .banner-btn {
+      padding: 0.9rem 1.8rem;
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 500;
+      font-family: 'Noto Sans KR', sans-serif;
+      cursor: pointer;
+      transition: background 0.3s;
+      white-space: nowrap;
+    }
+    .banner-btn:hover { background: #a86a28; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--text-dark);
+      color: rgba(255,255,255,0.7);
+      padding: 4rem 6rem 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand .brand-name {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.3rem;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .footer-brand p {
+      font-size: 0.82rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.55);
+      max-width: 260px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li {
+      margin-bottom: 0.6rem;
+    }
+    .footer-col ul li a {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-col ul li a:hover { color: var(--sand); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ─── KEYFRAMES ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes floatCard {
+      0%, 100% { transform: translate(-50%, -50%) rotate(-3deg) translateY(0); }
+      50%       { transform: translate(-50%, -50%) rotate(-3deg) translateY(-12px); }
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── SCROLL ANIMATIONS ─── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 3rem 1.5rem; }
+      .hero-title { font-size: 2.5rem; }
+      .hero-right { height: 360px; display: none; }
+      .products-section, .features-section, .reviews-section { padding: 4rem 1.5rem; }
+      .products-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .banner-section { margin: 0 1.5rem 4rem; flex-direction: column; gap: 2rem; padding: 2.5rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .banner-form { flex-direction: column; }
+      .banner-input { min-width: auto; }
+      footer { padding: 3rem 1.5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">수세미<span>나무</span></a>
+    <ul class="nav-links">
+      <li><a href="#products">상품</a></li>
+      <li><a href="#features">특징</a></li>
+      <li><a href="#reviews">후기</a></li>
+      <li><a href="#contact">문의</a></li>
+    </ul>
+    <a href="#" class="nav-cart">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      장바구니
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        100% 자연 소재
+      </div>
+
+      <h1 class="hero-title">
+        자연이 만든<br>
+        <span class="accent-line">청결한</span><br>
+        <span class="underline-accent">수세미</span>
+      </h1>
+
+      <p class="hero-desc">
+        천연 수세미 섬유로 만들어진 친환경 수세미.<br>
+        플라스틱 없이, 자연 그대로의 세정력으로<br>
+        주방을 깨끗하게 지켜드립니다.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#products" class="btn-primary">지금 쇼핑하기</a>
+        <a href="#features" class="btn-secondary">
+          더 알아보기
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">2,400+</div>
+          <div class="stat-label">만족 고객</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">4.9</div>
+          <div class="stat-label">평균 평점</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">천연 소재</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-bg-circle"></div>
+      <div class="hero-visual">
+        <!-- Main product card -->
+        <div class="hero-card-main">
+          <svg class="scrub-svg" viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="60" width="140" height="80" rx="18" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <line x1="50" y1="75" x2="50" y2="125" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="65" y1="70" x2="65" y2="130" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="80" y1="72" x2="80" y2="128" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="95" y1="68" x2="95" y2="132" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="110" y1="70" x2="110" y2="130" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="125" y1="72" x2="125" y2="128" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="140" y1="75" x2="140" y2="125" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="155" y1="78" x2="155" y2="122" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="100" cy="100" rx="55" ry="28" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-dasharray="5 3"/>
+            <rect x="60" y="30" width="80" height="16" rx="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+            <rect x="55" y="154" width="90" height="14" rx="7" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+            <circle cx="100" cy="100" r="8" fill="rgba(255,255,255,0.35)"/>
+          </svg>
+        </div>
+
+        <!-- Price badge -->
+        <div class="hero-card-badge">
+          <div class="badge-price">3,900</div>
+          <div class="badge-label">원 / 개</div>
+        </div>
+
+        <!-- Eco tag -->
+        <div class="hero-card-tag">친환경 인증 완료</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <span class="marquee-item">천연 수세미 <span class="marquee-sep">*</span></span>
+      <span class="marquee-item">친환경 포장 <span class="marquee-sep">*</span></span>
+      <span class="marquee-item">무농약 재배 <span class="marquee-sep">*</span></span>
+      <span class="marquee-item">100% 생분해 <span class="marquee-sep">*</span></span>
+      <span class="marquee-item">주방 세정력 최강 <span class="marquee-sep">*</span></span>
+      <span class="marquee-item">빠른 배송 <span class="marquee-sep">*</span></span>
+      <span class="marquee-item">천연 수세미 <span class="marquee-sep">*</span></span>
+      <span class="marquee-item">친환경 포장 <span class="marquee-sep">*</span></span>
+      <span class="marquee-item">무농약 재배 <span class="marquee-sep">*</span></span>
+      <span class="marquee-item">100% 생분해 <span class="marquee-sep">*</span></span>
+      <span class="marquee-item">주방 세정력 최강 <span class="marquee-sep">*</span></span>
+      <span class="marquee-item">빠른 배송 <span class="marquee-sep">*</span></span>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <section class="products-section" id="products">
+    <div class="section-header fade-in">
+      <div>
+        <div class="section-label">인기 상품</div>
+        <h2 class="section-title">자연이 선물한<br>청결함</h2>
+      </div>
+      <a href="#" class="section-link">전체 상품 보기</a>
+    </div>
+
+    <div class="products-grid">
+      <!-- Product 1 -->
+      <div class="product-card fade-in">
+        <div class="product-img bg-sage">
+          <span class="product-tag">BEST</span>
+          <div class="product-img-inner">
+            <svg width="100" height="90" viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="30" y="60" width="140" height="80" rx="18" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+              <line x1="55" y1="74" x2="55" y2="126" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="75" y1="70" x2="75" y2="130" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="95" y1="68" x2="95" y2="132" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="115" y1="70" x2="115" y2="130" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="135" y1="74" x2="135" y2="126" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="155" y1="78" x2="155" y2="122" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"/>
+              <rect x="60" y="32" width="80" height="14" rx="7" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+              <rect x="58" y="154" width="84" height="13" rx="6.5" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+            </svg>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">프리미엄 천연 수세미</div>
+          <div class="product-desc">엄선된 자연 수세미 섬유로 제작, 강력한 세정력과 부드러운 사용감</div>
+          <div class="product-footer">
+            <div class="product-price">3,900<small>원</small></div>
+            <button class="add-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card fade-in">
+        <div class="product-img bg-earth">
+          <span class="product-tag">NEW</span>
+          <div class="product-img-inner">
+            <svg width="100" height="90" viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="25" y="55" width="75" height="90" rx="14" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>
+              <rect x="110" y="55" width="65" height="90" rx="14" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>
+              <line x1="42" y1="70" x2="42" y2="130" stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-linecap="round"/>
+              <line x1="57" y1="66" x2="57" y2="134" stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-linecap="round"/>
+              <line x1="72" y1="68" x2="72" y2="132" stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-linecap="round"/>
+              <line x1="125" y1="70" x2="125" y2="130" stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-linecap="round"/>
+              <line x1="140" y1="67" x2="140" y2="133" stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-linecap="round"/>
+              <line x1="155" y1="70" x2="155" y2="130" stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-linecap="round"/>
+              <rect x="40" y="30" width="120" height="12" rx="6" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+            </svg>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">수세미 2종 세트</div>
+          <div class="product-desc">큰 것과 작은 것, 두 가지 크기로 다양한 용도에 맞게 사용하세요</div>
+          <div class="product-footer">
+            <div class="product-price">6,900<small>원</small></div>
+            <button class="add-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card fade-in">
+        <div class="product-img bg-sand">
+          <span class="product-tag">SAVE</span>
+          <div class="product-img-inner">
+            <svg width="110" height="90" viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="65" width="55" height="70" rx="12" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>
+              <rect x="85" y="58" width="55" height="80" rx="12" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+              <rect x="150" y="65" width="50" height="70" rx="12" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>
+              <line x1="34" y1="78" x2="34" y2="122" stroke="rgba(255,255,255,0.55)" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="47" y1="75" x2="47" y2="125" stroke="rgba(255,255,255,0.55)" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="60" y1="78" x2="60" y2="122" stroke="rgba(255,255,255,0.55)" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="100" y1="72" x2="100" y2="128" stroke="rgba(255,255,255,0.55)" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="112" y1="68" x2="112" y2="132" stroke="rgba(255,255,255,0.55)" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="124" y1="70" x2="124" y2="130" stroke="rgba(255,255,255,0.55)" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="162" y1="78" x2="162" y2="122" stroke="rgba(255,255,255,0.55)" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="175" y1="75" x2="175" y2="125" stroke="rgba(255,255,255,0.55)" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="188" y1="78" x2="188" y2="122" stroke="rgba(255,255,255,0.55)" stroke-width="1.8" stroke-linecap="round"/>
+              <rect x="70" y="28" width="80" height="12" rx="6" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+            </svg>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">10개 묶음 알뜰 패키지</div>
+          <div class="product-desc">자주 교체해야 하는 수세미, 한 번에 넉넉하게 구매하여 절약하세요</div>
+          <div class="product-footer">
+            <div class="product-price">29,000<small>원</small></div>
+            <button class="add-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features-section" id="features">
+    <div class="section-header fade-in">
+      <div>
+        <div class="section-label">왜 수세미나무인가요</div>
+        <h2 class="section-title">다른 이유가 있습니다</h2>
+      </div>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card fade-in">
+        <div class="feature-icon icon-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4a7046" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div class="feature-title">100% 천연 소재</div>
+        <div class="feature-text">화학 성분 없이 자연 그대로 재배된 수세미 섬유만 사용합니다</div>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon icon-earth">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c17f3b" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <div class="feature-title">생분해 가능</div>
+        <div class="feature-text">사용 후 땅에 묻으면 자연스럽게 분해되어 환경 부담이 없습니다</div>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon icon-sand">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8b6f47" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <div class="feature-title">강력한 세정력</div>
+        <div class="feature-text">천연 섬유의 독특한 구조가 기름때와 찌든 때를 효과적으로 제거합니다</div>
+      </div>
+
+      <div class="feature-card fade-in">
+        <div class="feature-icon icon-dark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4a7046" stroke-width="2">
+            <rect x="1" y="3" width="15" height="13" rx="2"/>
+            <path d="M16 8h4a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-4M5 21h14"/>
+          </svg>
+        </div>
+        <div class="feature-title">빠른 무료배송</div>
+        <div class="feature-text">3만원 이상 구매 시 전국 무료배송, 당일 출고로 빠르게 받아보세요</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews-section" id="reviews">
+    <div class="section-header fade-in">
+      <div>
+        <div class="section-label">고객 후기</div>
+        <h2 class="section-title">사용해본 분들의<br>이야기</h2>
+      </div>
+      <a href="#" class="section-link">모든 후기 보기</a>
+    </div>
+
+    <div class="reviews-grid">
+      <div class="review-card fade-in">
+        <div class="review-stars">
+          <div class="star"></div><div class="star"></div><div class="star"></div>
+          <div class="star"></div><div class="star"></div>
+        </div>
+        <p class="review-text">플라스틱 수세미 쓰다가 이걸로 바꿨는데 진짜 후회가 없어요. 세정력도 좋고 환경에도 좋고 일석이조입니다. 주변에도 다 추천하고 있어요!</p>
+        <div class="review-author">
+          <div class="author-avatar av1">김</div>
+          <div class="author-info">
+            <div class="name">김미영</div>
+            <div class="date">2025.11.03</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="review-stars">
+          <div class="star"></div><div class="star"></div><div class="star"></div>
+          <div class="star"></div><div class="star"></div>
+        </div>
+        <p class="review-text">처음에는 천연 제품이라 약하지 않을까 걱정했는데 전혀요. 오히려 기름때가 더 잘 닦이는 느낌? 냄새도 안 나고 위생적이에요.</p>
+        <div class="review-author">
+          <div class="author-avatar av2">박</div>
+          <div class="author-info">
+            <div class="name">박준서</div>
+            <div class="date">2025.10.18</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="review-stars">
+          <div class="star"></div><div class="star"></div><div class="star"></div>
+          <div class="star"></div><div class="star"></div>
+        </div>
+        <p class="review-text">10개 패키지 구매했는데 가성비 최고예요. 포장도 친환경 재질이라 개봉할 때부터 기분이 좋았어요. 정기 구매로 바꿀 예정입니다.</p>
+        <div class="review-author">
+          <div class="author-avatar av3">이</div>
+          <div class="author-info">
+            <div class="name">이수진</div>
+            <div class="date">2025.09.25</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER BANNER -->
+  <div class="banner-section fade-in" id="contact">
+    <div class="banner-text">
+      <h2>첫 구매 10% 할인<br>받아가세요</h2>
+      <p>뉴스레터 구독 시 할인 쿠폰과 함께<br>신상품 소식을 가장 먼저 전해드립니다</p>
+    </div>
+    <div class="banner-form">
+      <input class="banner-input" type="email" placeholder="이메일 주소를 입력하세요" />
+      <button class="banner-btn">쿠폰 받기</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand-name">수세미나무</div>
+        <p>자연에서 온 천연 수세미로 더 건강하고 친환경적인 일상을 만들어 드립니다. 사람과 자연 모두를 위한 선택.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>상품</h4>
+        <ul>
+          <li><a href="#">천연 수세미</a></li>
+          <li><a href="#">세트 상품</a></li>
+          <li><a href="#">묶음 할인</a></li>
+          <li><a href="#">선물 포장</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>고객 지원</h4>
+        <ul>
+          <li><a href="#">자주 묻는 질문</a></li>
+          <li><a href="#">배송 안내</a></li>
+          <li><a href="#">교환 / 반품</a></li>
+          <li><a href="#">1:1 문의</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>회사 정보</h4>
+        <ul>
+          <li><a href="#">브랜드 스토리</a></li>
+          <li><a href="#">친환경 정책</a></li>
+          <li><a href="#">개인정보 처리방침</a></li>
+          <li><a href="#">이용 약관</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>2025 수세미나무. All rights reserved.</span>
+      <span>사업자 등록번호: 123-45-67890 | 대표: 홍길동 | 통신판매업신고: 제2025-서울-0000호</span>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for fade-in animations
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          entry.target.style.transitionDelay = (i % 4) * 0.1 + 's';
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    fadeEls.forEach(el => observer.observe(el));
+
+    // Nav scroll effect
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 50) {
+        nav.style.boxShadow = '0 4px 24px rgba(0,0,0,0.08)';
+      } else {
+        nav.style.boxShadow = 'none';
+      }
+    });
+
+    // Add to cart button animation
+    document.querySelectorAll('.add-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        this.style.background = '#c17f3b';
+        this.innerHTML = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:white"><path d="M20 6L9 17l-5-5"/></svg>';
+        setTimeout(() => {
+          this.style.background = '';
+          this.innerHTML = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:white"><path d="M12 5v14M5 12h14"/></svg>';
+        }, 1500);
+      });
+    });
+
+    // Newsletter button
+    document.querySelector('.banner-btn').addEventListener('click', function() {
+      const input = document.querySelector('.banner-input');
+      if (input.value.includes('@')) {
+        this.textContent = '등록 완료!';
+        this.style.background = '#4a7046';
+        input.value = '';
+        setTimeout(() => {
+          this.textContent = '쿠폰 받기';
+          this.style.background = '';
+        }, 2500);
+      } else {
+        input.style.border = '2px solid #e87272';
+        setTimeout(() => { input.style.border = ''; }, 1500);
+      }
+    });
+  </script>
+</body>
+</html>
